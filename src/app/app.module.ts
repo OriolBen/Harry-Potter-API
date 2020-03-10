@@ -5,10 +5,14 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { ApiServiceService } from './api-service.service';
+import { HomeComponent } from './components/home/home.component';
+import { CharactersComponent } from './components/characters/characters.component';
+import { HousesComponent } from './components/houses/houses.component';
+import { SpellsComponent } from './components/spells/spells.component';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpClientModule ],
-  declarations: [ AppComponent ],
+  declarations: [ AppComponent, HomeComponent, CharactersComponent, HousesComponent, SpellsComponent ],
   bootstrap:    [ AppComponent ],
   providers: [ApiServiceService]
 })
