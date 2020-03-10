@@ -3,10 +3,9 @@ p {
 }
 
 #background {
-  margin: 0px;
   width: 100vw;
   height: 100vh;
-  background-image: url("../app/assets/home/Home.png");
+  background-image: url("https://potterhood.com/wp-content/uploads/2017/10/59e7634039041-Screenshot_2016-02-19-10-54-19-1.png");
 	background-position:center;
 	background-repeat:no-repeat;
 	background-size:cover;
