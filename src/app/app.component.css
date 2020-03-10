@@ -5,7 +5,7 @@ p {
 #background {
   width: 100vw;
   height: 100vh;
-  background-image: url("/assets/home/Home.png");
+  // background-image: url("https://stackblitz.com/files/harry-potter-api/github/OriolBen/Harry-Potter-API/master/src/assets/Home.png");
 	background-position:center;
 	background-repeat:no-repeat;
 	background-size:cover;
