@@ -5,10 +5,11 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { ApiServiceService } from './api-service.service';
+import { HomeComponent } from './components/home/home/home.component';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpClientModule ],
-  declarations: [ AppComponent ],
+  declarations: [ AppComponent, HomeComponent ],
   bootstrap:    [ AppComponent ],
   providers: [ApiServiceService]
 })
