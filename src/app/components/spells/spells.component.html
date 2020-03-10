@@ -1,0 +1,13 @@
+<div>
+  <h1>Spells</h1>
+  <button (click)="getAllSpells()" type="button">All Spells</button>
+  <ul *ngIf="spells.length != 0">
+    <li *ngFor="let spell of spells">{{spell.spell}}
+      <ul>
+        <li>ID: {{spell._id}}
+        <li>Type: {{spell.type}}</li>
+        <li>Effect: {{spell.effect}}</li>
+      </ul>
+    </li>
+  </ul>
+</div>

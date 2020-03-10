@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiServiceService } from '../../api-service.service'
 
 @Component({
   selector: 'app-characters',
   templateUrl: './characters.component.html',
   styleUrls: ['./characters.component.css']
 })
-export class CharactersComponent implements OnInit {
 
-  constructor() { }
+export class CharactersComponent implements OnInit {
+  characters : Array<any> = []
+
+  constructor(private api : ApiServiceService) {}
 
   ngOnInit() {
   }

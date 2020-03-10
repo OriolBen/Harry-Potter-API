@@ -9,10 +9,12 @@ import { HomeComponent } from './components/home/home.component';
 import { CharactersComponent } from './components/characters/characters.component';
 import { HousesComponent } from './components/houses/houses.component';
 import { SpellsComponent } from './components/spells/spells.component';
+import { CharacterComponent } from './components/character/character.component';
+import { HouseComponent } from './components/house/house.component';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpClientModule ],
-  declarations: [ AppComponent, HomeComponent, CharactersComponent, HousesComponent, SpellsComponent ],
+  declarations: [ AppComponent, HomeComponent, CharactersComponent, HousesComponent, SpellsComponent, CharacterComponent, HouseComponent ],
   bootstrap:    [ AppComponent ],
   providers: [ApiServiceService]
 })

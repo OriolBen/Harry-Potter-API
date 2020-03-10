@@ -1,11 +1,13 @@
 import { Component } from '@angular/core'
 import { ApiServiceService } from './api-service.service'
+
 @Component({
   selector : 'my-app',
   // CHANGE THIS!!!!
-  templateUrl : './components/characters/characters.component.html',
-  styleUrls : [ './components/characters/characters.component.css' ]
+  templateUrl : './components/spells/spells.component.html',
+  styleUrls : [ './components/spells/spells.component.css' ]
 })
+
 export class AppComponent  {
   randomHouse : string = ""
   house : Array<any> = []
