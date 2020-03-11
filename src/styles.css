@@ -1,4 +1,6 @@
 /* Add application styles & imports to this file! */
+@import "w3.css";
+
 body {
   margin: 0px;
   padding: 0px;
