@@ -20,4 +20,13 @@ export class SpellsComponent implements OnInit {
       this.spells = data
     })
   }
+
+  getSpells(type) : void {
+    this.api.getAllSpells().subscribe((data : Array<any>) => {
+      this.spells = []
+      data.forEach((spell) => {
+        if (spell.type == type) this.spells.push(spell)
+      })
+    })
+  }
 }
