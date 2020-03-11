@@ -2,11 +2,12 @@
   <div id="navigation-container">
     <img src="https://cdn.jsdelivr.net/gh/OriolBen/Harry-Potter-API@master/src/app/assets/home/hogwarts%20logo.png">
     <ul>
-      <li><span></span><a href="#">Home</a></li>
-      <li><a href="/houses">Houses</a></li>
-      <li><a href="/characters">Characters</a></li>
-      <li><a href="/spells">Spells</a></li>
+      <li><fa-icon [icon]="['fas', 'home']" pull="left"></fa-icon><a href="#">Home</a></li>
+      <li><fa-icon [icon]="['fas', 'hat-wizard']" [spin]="true" pull="left"></fa-icon><a href="/houses">Houses</a></li>
+      <li><fa-icon [icon]="['fas', 'users']" pull="left"></fa-icon><a href="/characters">Characters</a></li>
+      <li><fa-icon [icon]="['fas', 'magic']" pull="left"></fa-icon><a href="/spells">Spells</a></li>
     </ul>
   </div>
 </div>
 <router-outlet></router-outlet>
+<app-footer></app-footer>
