@@ -10,6 +10,7 @@ import { ApiService } from '../../api.service'
 export class SpellsComponent implements OnInit {
   spells : Array<any> = []
   local : Array<any> = []
+  name : string = ""
 
   constructor(private api : ApiService) {}
 
@@ -27,6 +28,15 @@ export class SpellsComponent implements OnInit {
       this.spells = []
       data.forEach((spell) => {
         if (spell.type == type) this.spells.push(spell)
+      })
+    })
+  }
+
+  searchSpells() : void {
+    this.api.getAllSpells().subscribe((data : Array<any>) => {
+      this.spells = []
+      data.forEach((spell) => {
+        if (spell.spell.toLowerCase().includes(this.name)) this.spells.push(spell)
       })
     })
   }
