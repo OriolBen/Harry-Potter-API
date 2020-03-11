@@ -6,6 +6,7 @@ import { CharacterComponent } from './components/character/character.component';
 import { HousesComponent } from './components/houses/houses.component';
 import { HouseComponent } from './components/house/house.component';
 import { SpellsComponent } from './components/spells/spells.component';
+import { FavouritesComponent } from './components/favourites/favourites.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: 'spells',
     component: SpellsComponent
+  },
+  {
+    path: 'favourites',
+    component: FavouritesComponent
   },
 ];
 

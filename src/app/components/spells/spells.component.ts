@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiServiceService } from '../../api-service.service'
+import { ApiService } from '../../api.service'
 
 @Component({
   selector: 'app-spells',
@@ -10,7 +10,7 @@ import { ApiServiceService } from '../../api-service.service'
 export class SpellsComponent implements OnInit {
   spells : Array<any> = []
 
-  constructor(private api : ApiServiceService) {}
+  constructor(private api : ApiService) {}
 
   ngOnInit() {
   }

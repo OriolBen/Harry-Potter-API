@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
-export class ApiServiceService {
+export class ApiService {
   readonly apiKey = "$2a$10$UD/i1boaxVbc18ID7VvX3OpjR0BVvUHZi92xxucNXtutx1KCPTChW"
 
   constructor(private http: HttpClient) {}
