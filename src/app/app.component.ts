@@ -1,4 +1,6 @@
 import { Component } from '@angular/core'
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector : 'my-app',
@@ -6,4 +8,6 @@ import { Component } from '@angular/core'
   styleUrls : [ './app.component.css' ]
 })
 
-export class AppComponent  { }
+export class AppComponent  {
+  faCoffee = faCoffee;
+}

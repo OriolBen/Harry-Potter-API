@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
 import { ApiServiceService } from './api-service.service';
 import { HomeComponent } from './components/home/home.component';
@@ -14,7 +15,7 @@ import { HouseComponent } from './components/house/house.component';
 import { SpellsComponent } from './components/spells/spells.component';
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, HttpClientModule, AppRoutingModule ],
+  imports:      [ BrowserModule, FormsModule, HttpClientModule, FontAwesomeModule, AppRoutingModule ],
   declarations: [ AppComponent, HomeComponent, CharactersComponent, HousesComponent, SpellsComponent, CharacterComponent, HouseComponent ],
   bootstrap:    [ AppComponent ],
   providers: [ApiServiceService]
