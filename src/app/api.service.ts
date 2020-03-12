@@ -7,18 +7,13 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  getRandomHogwartsHouse() {
-    const apiURL = "https://www.potterapi.com/v1/sortingHat"
-    return this.http.get(apiURL)
-  }
-
   getAllCharacters() {
     const apiURL = "https://www.potterapi.com/v1/characters" + "?key=" + this.apiKey
     return this.http.get(apiURL)
   }
 
-  getCharacter(characterID : string) {
-    const apiURL = "https://www.potterapi.com/v1/characters/" + characterID + "?key=" + this.apiKey
+  getCharacter(id : string) {
+    const apiURL = "https://www.potterapi.com/v1/characters/" + id + "?key=" + this.apiKey
     return this.http.get(apiURL)
   }
 
@@ -27,8 +22,8 @@ export class ApiService {
     return this.http.get(apiURL)
   }
 
-  getHouse(houseID: string) {
-    const apiURL = "https://www.potterapi.com/v1/houses/" + houseID + "?key=" + this.apiKey
+  getHouse(id : string) {
+    const apiURL = "https://www.potterapi.com/v1/houses/" + id + "?key=" + this.apiKey
     return this.http.get(apiURL)
   }
 

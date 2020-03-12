@@ -60,6 +60,4 @@ export class SpellsComponent implements OnInit {
     }
     return false
   }
-
-  // https://stackblitz.com/edit/5-dam-dataservice?embed=1&file=app/app.component.ts
 }

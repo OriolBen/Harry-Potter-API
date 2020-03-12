@@ -15,8 +15,8 @@ export class HouseComponent implements OnInit {
   ngOnInit() {
   }
 
-  getHouse(houseID) : void {
-    this.api.getHouse(houseID).subscribe((data : Array<any>) => {
+  getHouse(id) : void {
+    this.api.getHouse(id).subscribe((data : Array<any>) => {
       this.house = data
     })
   }

@@ -2,7 +2,7 @@
   <h1>Characters</h1>
   <button (click)="getAllCharacters()" type="button">All Characters</button>
   <ul *ngIf="characters.length != 0">
-    <li *ngFor="let character of characters">{{character.name}}
+    <li *ngFor="let character of characters"><a href="character/{{character._id}}">{{character.name}}</a>
       <ul>
         <li>ID: {{character._id}}</li>
         <li>House: {{character.house}}</li>
