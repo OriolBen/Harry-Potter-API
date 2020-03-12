@@ -13,7 +13,7 @@
   <input (keyup.enter)="searchSpells()" [(ngModel)]="name" placeholder="Spells by name">
   <button (click)="searchSpells()" type="button">Search</button>
   <ul *ngIf="spells.length != 0">
-    <li *ngFor="let spell of spells">{{spell.spell}}<button *ngIf="!checkSpell(spell._id)" (click)="addSpell(spell)" type="button">Add to favourites</button><button *ngIf="checkSpell(spell._id)" (click)="removeSpell(spell._id)" type="button">Remove from favourites</button>
+    <li *ngFor="let spell of spells; let i = index">{{spell.spell}}<button *ngIf="!checkSpell(spell._id)" (click)="addSpell(spell._id)" type="button">Add to favourites</button><button *ngIf="checkSpell(spell._id)" (click)="removeSpell(i)" type="button">Remove from favourites</button>
       <ul>
         <li>ID: {{spell._id}}
         <li>Type: {{spell.type}}</li>

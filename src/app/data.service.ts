@@ -5,10 +5,10 @@ export const LOCAL_DATA = new InjectionToken<Storage>('Local Data', {
   factory: () => localStorage
 })
 
-export interface Favourites {
-  house : string
-  characters : Array<string>
-  spells : Array<string>
+export interface Favourite {
+  house : string,
+  characters : Array<string>,
+  spells : Array<string>,
 }
 
 @Injectable({
@@ -16,26 +16,46 @@ export interface Favourites {
 })
 
 export class DataService {
-  favourites : Favourites
+  favourite : Favourite
 
   constructor(@Inject(LOCAL_DATA) public data : Storage) {
     let exists = this.data.getItem('Harry Potter API')
     if (!exists) {
-      this.favourites = {
+      this.favourite = {
         "house": "",
         "characters": [],
         "spells": []
       }
     }
-    else this.favourites = JSON.parse(exists)
+    else this.favourite = JSON.parse(exists)
   }
 
-  updatefavourites(category : string, id : string) : void {
-    switch (category) {
-      case "House": this.favourites.house = id
-      case "Characters": this.favourites.characters.push(id)
-      case "Spells": this.favourites.spells.push(id)
-    }
-    this.data.setItem('Harry Potter API', JSON.stringify(this.favourites))
+  getFavourite() : Favourite {
+    return this.favourite
   }
+  
+  getSpells() : Array<string> {
+    return this.favourite.spells
+  }
+
+  addFavourite(category : string, id : string) : Favourite {
+    switch (category) {
+      case "House": this.favourite.house = id
+      case "Characters": this.favourite.characters.push(id)
+      case "Spells": this.favourite.spells.push(id)
+    }
+    this.data.setItem('Harry Potter API', JSON.stringify(this.favourite))
+    return this.favourite
+  }
+
+  /*
+  updatefavourite(category : string, id : string) : void {
+    switch (category) {
+      case "House": this.favourite.house = id
+      case "Characters": this.favourite.characters.push(id)
+      case "Spells": this.favourite.spells.push(id)
+    }
+    this.data.setItem('Harry Potter API', JSON.stringify(this.favourite))
+  }
+  */
 }

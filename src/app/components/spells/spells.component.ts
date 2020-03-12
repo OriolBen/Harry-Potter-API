@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ApiService } from '../../api.service'
+import { Favourite, DataService } from '../../data.service'
 
 @Component({
   selector: 'app-spells',
@@ -9,13 +10,14 @@ import { ApiService } from '../../api.service'
 
 export class SpellsComponent implements OnInit {
   spells : Array<any> = []
-  local : Array<any> = []
+  local : Array<string>
   name : string = ""
   search : boolean = false
 
-  constructor(private api : ApiService) {}
+  constructor(private api : ApiService, private storage : DataService) {}
 
   ngOnInit() {
+    this.local = this.storage.getSpells()
   }
 
   getAllSpells() : void {
@@ -45,22 +47,17 @@ export class SpellsComponent implements OnInit {
     })
   }
 
-  addSpell(spell) : void {
-    this.local.push(spell)
+  addSpell(id) : void {
+    this.local = this.storage.addFavourite("Spells", id).spells
   }
 
-  removeSpell(id) : void {
-    for (let i = 0; i < this.local.length; i++) {
-      if (this.local[i]._id == id) {
-        this.local.splice(i, 1)
-        break
-      }
-    }
+  removeSpell(i) : void {
+    this.local = this.storage.removeFavourite("Spells", i)
   }
 
   checkSpell(id) : boolean {
     for (var i = 0; i < this.local.length; i++) {
-      if (this.local[i]._id == id) return true
+      if (this.local[i] == id) return true
     }
     return false
   }
