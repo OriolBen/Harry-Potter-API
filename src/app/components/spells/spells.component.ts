@@ -11,6 +11,7 @@ export class SpellsComponent implements OnInit {
   spells : Array<any> = []
   local : Array<any> = []
   name : string = ""
+  search : boolean = false
 
   constructor(private api : ApiService) {}
 
@@ -18,12 +19,14 @@ export class SpellsComponent implements OnInit {
   }
 
   getAllSpells() : void {
+    this.search = false
     this.api.getAllSpells().subscribe((data : Array<any>) => {
       this.spells = data
     })
   }
 
   getSpells(type) : void {
+    this.search = false
     this.api.getAllSpells().subscribe((data : Array<any>) => {
       this.spells = []
       data.forEach((spell) => {
@@ -33,6 +36,7 @@ export class SpellsComponent implements OnInit {
   }
 
   searchSpells() : void {
+    this.search = true
     this.api.getAllSpells().subscribe((data : Array<any>) => {
       this.spells = []
       data.forEach((spell) => {
