@@ -42,4 +42,13 @@ export class CharacterComponent implements OnInit {
   checkCharacter() : boolean {
     return typeof this.local !== 'undefined'
   }
+
+  houseLink() : string {
+    this.api.getAllHouses().subscribe((data : Array<any>) => {
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].name == this.character["house"]) return "house/" + data[i]._id
+      }
+    })
+    return ""
+  }
 }

@@ -2,7 +2,7 @@
   <h1>{{character.name}}</h1>
   <ul>
     <li>ID: {{character._id}}</li>
-    <li>House: {{character.house}}</li>
+    <li>House: <a ngHref="{{houseLink()}}">{{character.house}}</a></li>
     <li>Patronus: {{character.patronus}}</li>
     <li>Species: {{character.species}}</li>
     <li>Blood Status: {{character.bloodStatus}}</li>

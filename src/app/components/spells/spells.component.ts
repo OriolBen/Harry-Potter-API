@@ -50,7 +50,7 @@ export class SpellsComponent implements OnInit {
   }
 
   removeSpell(id) : void {
-    for (var i = 0; i < this.local.length; i++) {
+    for (let i = 0; i < this.local.length; i++) {
       if (this.local[i]._id == id) {
         this.local.splice(i, 1)
         break
