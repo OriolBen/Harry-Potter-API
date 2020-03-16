@@ -13,7 +13,8 @@
       <option value="Slytherin">Slytherin</option>
       <option value="Hufflepuff">Hufflepuff</option>
     </select>
-    Blood Status:
+  </p>
+  <p>Blood Status:
     <select [(ngModel)]="filters['bloodStatus']">
       <option value="Ignore" selected>Ignore</option>
       <option value="pure-blood">Pure-blood</option>
@@ -21,32 +22,36 @@
       <option value="muggle-born">Muggle-born</option>
       <option value="unknown">Unknown</option>
     </select>
-    Death Eater:
+  </p>
+  <p>Death Eater:
     <select [(ngModel)]="filters['deathEater']">
       <option value="Ignore" selected>Ignore</option>
       <option value="true">Yes</option>
       <option value="false">No</option>
     </select>
-    Dumbledore's Army:
+  </p>
+  <p>Dumbledore's Army:
     <select [(ngModel)]="filters['dumbledoresArmy']">
       <option value="Ignore" selected>Ignore</option>
       <option value="true">Yes</option>
       <option value="false">No</option>
     </select>
-    Order of the Phoenix:
+  </p>
+  <p>Order of the Phoenix:
     <select [(ngModel)]="filters['orderOfThePhoenix']">
       <option value="Ignore" selected>Ignore</option>
       <option value="true">Yes</option>
       <option value="false">No</option>
     </select>
-    Ministry of Magic:
+  </p>
+  <p>Ministry of Magic:
     <select [(ngModel)]="filters['ministryOfMagic']">
       <option value="Ignore" selected>Ignore</option>
       <option value="true">Yes</option>
       <option value="false">No</option>
     </select>
-    <button (click)="customSearch()" type="button">Custom search</button>
   </p>
+  <button (click)="customSearch()" type="button">Custom search</button>
   <ul *ngIf="characters.length != 0">
     <li *ngFor="let character of characters">
       <a href="character/{{character._id}}">{{character.name}}</a>
