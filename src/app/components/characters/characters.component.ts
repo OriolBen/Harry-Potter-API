@@ -27,6 +27,10 @@ export class CharactersComponent implements OnInit {
     })
   }
 
+  check(value : string) : boolean {
+    return typeof value !== 'undefined'
+  }
+
   searchCharacters() : void {
     if (this.name != "") {
       this.search = true
@@ -39,18 +43,26 @@ export class CharactersComponent implements OnInit {
     }
   }
 
-  addCharacter(id) : void {
+  addCharacter(id : string) : void {
     this.local = this.storage.addFavourite("Characters", id).characters
   }
 
-  removeCharacter(id) : void {
+  removeCharacter(id : string) : void {
     this.local = this.storage.removeFavourite("Characters", id).characters
   }
 
-  checkCharacter(id) : boolean {
+  checkCharacter(id : string) : boolean {
     for (var i = 0; i < this.local.length; i++) {
       if (this.local[i] == id) return true
     }
     return false
+  }
+
+   house() : void {
+    this.api.getAllHouses().subscribe((data : Array<any>) => {
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].name == this.character["house"]) this.link = data[i]._id
+      }
+    })
   }
 }

@@ -44,11 +44,16 @@ export class DataService {
 
   addFavourite(category : string, id : string) : Favourite {
     switch (category) {
-      case "House": this.favourite.house = id
-      case "Characters": this.favourite.characters.push(id)
+      case "House":
+        this.favourite.house = id
+        break
+      case "Characters":
+        this.favourite.characters.push(id)
+        break
       case "Spells": 
         console.log("Here")
         this.favourite.spells.push(id)
+        break
     }
     this.data.setItem('Harry Potter API', JSON.stringify(this.favourite))
     return this.favourite
@@ -56,15 +61,19 @@ export class DataService {
 
   removeFavourite(category : string, id : string) : Favourite {
     switch (category) {
-      case "House": this.favourite.house = id
+      case "House": 
+        this.favourite.house = id
+        break
       case "Characters": 
         for (var i = 0; i < this.favourite.characters.length; i++) {
           if (this.favourite.characters[i] == id) this.favourite.characters.splice(i, 1)
         }
+        break
       case "Spells":
         for (var i = 0; i < this.favourite.spells.length; i++) {
           if (this.favourite.spells[i] == id) this.favourite.spells.splice(i, 1)
         }
+        break
     }
     this.data.setItem('Harry Potter API', JSON.stringify(this.favourite))
     return this.favourite

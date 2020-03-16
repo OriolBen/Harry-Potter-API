@@ -1,24 +1,29 @@
 <div>
   <h1>Characters</h1>
   <button (click)="getAllCharacters()" type="button">All Characters</button>
+  <input (keyup.enter)="searchCharacters()" [(ngModel)]="name" placeholder="Characters by name">
+  <button (click)="searchCharacters()" type="button">Search</button>
   <ul *ngIf="characters.length != 0">
-    <li *ngFor="let character of characters"><a href="character/{{character._id}}">{{character.name}}</a><button *ngIf="!checkCharacter(character._id)" (click)="addCharacter(character._id)" type="button">Add to favourites</button><button *ngIf="checkCharacter(character._id)" (click)="removeCharacter(character._id)" type="button">Remove from favourites</button>
+    <li *ngFor="let character of characters">
+      <a href="character/{{character._id}}">{{character.name}}</a>
+      <button *ngIf="!checkCharacter(character._id)" (click)="addCharacter(character._id)" type="button">Add to favourites</button>
+      <button *ngIf="checkCharacter(character._id)" (click)="removeCharacter(character._id)" type="button">Remove from favourites</button>
       <ul>
         <li>ID: {{character._id}}</li>
-        <li>House: {{character.house}}</li>
-        <li>Patronus: {{character.patronus}}</li>
-        <li>Species: {{character.species}}</li>
-        <li>Blood Status: {{character.bloodStatus}}</li>
-        <li>Role: {{character.role}}</li>
-        <li>School: {{character.school}}</li>
-        <li>Death Eater: {{character.deathEater}}</li>
-        <li>Dumbledore's Army: {{character.dumbledoresArmy}}</li>
-        <li>Order of the Phoenix: {{character.orderOfThePhoenix}}</li>
-        <li>Ministry of Magic: {{character.ministryOfMagic}}</li>
-        <li>Alias: {{character.alias}}</li>
-        <li>Wand: {{character.wand}}</li>
-        <li>Boggart: {{character.boggart}}</li>
-        <li>Animagus: {{character.animagus}}</li>
+        <li *ngIf="check(character.house)">House: <a [routerLink]="['/house', link]">{{character.house}}</a></li>
+        <li *ngIf="check(character.patronus)">Patronus: {{character.patronus}}</li>
+        <li *ngIf="check(character.species)">Species: {{character.species}}</li>
+        <li *ngIf="check(character.bloodStatus)">Blood Status: {{character.bloodStatus}}</li>
+        <li *ngIf="check(character.role)">Role: {{character.role}}</li>
+        <li *ngIf="check(character.school)">School: {{character.school}}</li>
+        <li *ngIf="check(character.deathEater)">Death Eater: {{character.deathEater}}</li>
+        <li *ngIf="check(character.dumbledoresArmy)">Dumbledore's Army: {{character.dumbledoresArmy}}</li>
+        <li *ngIf="check(character.orderOfThePhoenix)">Order of the Phoenix: {{character.orderOfThePhoenix}}</li>
+        <li *ngIf="check(character.ministryOfMagic)">Ministry of Magic: {{character.ministryOfMagic}}</li>
+        <li *ngIf="check(character.alias)">Alias: {{character.alias}}</li>
+        <li *ngIf="check(character.wand)">Wand: {{character.wand}}</li>
+        <li *ngIf="check(character.boggart)">Boggart: {{character.boggart}}</li>
+        <li *ngIf="check(character.animagus)">Animagus: {{character.animagus}}</li>
       </ul>
     </li>
   </ul>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ApiService } from '../../api.service'
-import { ActivatedRoute } from '@angular/router';
+import { DataService } from '../../data.service'
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'app-character',
@@ -10,15 +11,15 @@ import { ActivatedRoute } from '@angular/router';
 
 export class CharacterComponent implements OnInit {
   character : object
-  local : object
+  local : Array<string>
   id : string
   exists : boolean
-  link : string
 
-  constructor(private api : ApiService, private route: ActivatedRoute) {}
+  constructor(private api : ApiService, private storage : DataService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.params.subscribe(res => this.id = res.id)
+    this.local = this.storage.getCharacters()
     this.getCharacter()
   }
 
@@ -28,27 +29,34 @@ export class CharacterComponent implements OnInit {
       else {
         this.character = data
         this.exists = true
-        this.houseLink()
+        if (typeof this.character["house"] !== 'undefined') this.house()
       }
     })
   }
 
+  check(value : string) : boolean {
+    return typeof value !== 'undefined'
+  }
+
   addCharacter() : void {
-    this.local = this.character
+    this.local = this.storage.addFavourite("Characters", this.id).characters
   }
 
   removeCharacter() : void {
-    this.local = undefined
+    this.local = this.storage.removeFavourite("Characters", this.id).characters
   }
 
   checkCharacter() : boolean {
-    return typeof this.local !== 'undefined'
+    for (var i = 0; i < this.local.length; i++) {
+      if (this.local[i] == this.id) return true
+    }
+    return false
   }
 
-  houseLink() : void {
+  house() : string {
     this.api.getAllHouses().subscribe((data : Array<any>) => {
       for (let i = 0; i < data.length; i++) {
-        if (data[i].name == this.character["house"]) this.link = data[i]._id
+        if (data[i].name == this.character["house"]) return "/house/" + data[i]._id
       }
     })
   }
