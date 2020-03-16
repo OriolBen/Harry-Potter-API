@@ -81,11 +81,11 @@ export class CharactersComponent implements OnInit {
   }
 
   addCharacter(id : string) : void {
-    this.local = this.storage.addFavourite("Characters", id).characters
+    this.local = this.storage.addFavourite("characters", id).characters
   }
 
   removeCharacter(id : string) : void {
-    this.local = this.storage.removeFavourite("Characters", id).characters
+    this.local = this.storage.removeFavourite("characters", id).characters
   }
 
   checkCharacter(id : string) : boolean {

@@ -40,11 +40,11 @@ export class CharacterComponent implements OnInit {
   }
 
   addCharacter() : void {
-    this.local = this.storage.addFavourite("Characters", this.id).characters
+    this.local = this.storage.addFavourite("characters", this.id).characters
   }
 
   removeCharacter() : void {
-    this.local = this.storage.removeFavourite("Characters", this.id).characters
+    this.local = this.storage.removeFavourite("characters", this.id).characters
   }
 
   checkCharacter() : boolean {

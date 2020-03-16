@@ -47,11 +47,11 @@ export class SpellsComponent implements OnInit {
   }
 
   addSpell(id) : void {
-    this.local = this.storage.addFavourite("Spells", id).spells
+    this.local = this.storage.addFavourite("spells", id).spells
   }
 
   removeSpell(id) : void {
-    this.local = this.storage.removeFavourite("Spells", id).spells
+    this.local = this.storage.removeFavourite("spells", id).spells
   }
 
   checkSpell(id) : boolean {
