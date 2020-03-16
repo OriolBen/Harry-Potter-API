@@ -14,6 +14,7 @@ export class CharacterComponent implements OnInit {
   local : Array<string>
   id : string
   exists : boolean
+  link : string
 
   constructor(private api : ApiService, private storage : DataService, private route: ActivatedRoute) {}
 
@@ -53,10 +54,10 @@ export class CharacterComponent implements OnInit {
     return false
   }
 
-  house() : string {
+  house() : void {
     this.api.getAllHouses().subscribe((data : Array<any>) => {
       for (let i = 0; i < data.length; i++) {
-        if (data[i].name == this.character["house"]) return "/house/" + data[i]._id
+        if (data[i].name == this.character["house"]) this.link = data[i]._id
       }
     })
   }

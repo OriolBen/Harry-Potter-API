@@ -10,7 +10,7 @@
       <button *ngIf="checkCharacter(character._id)" (click)="removeCharacter(character._id)" type="button">Remove from favourites</button>
       <ul>
         <li>ID: {{character._id}}</li>
-        <li *ngIf="check(character.house)">House: <a [routerLink]="['/house', link]">{{character.house}}</a></li>
+        <li *ngIf="check(character.house)">House: <a [routerLink]="['/house', house()]">{{character.house}}</a></li>
         <li *ngIf="check(character.patronus)">Patronus: {{character.patronus}}</li>
         <li *ngIf="check(character.species)">Species: {{character.species}}</li>
         <li *ngIf="check(character.bloodStatus)">Blood Status: {{character.bloodStatus}}</li>

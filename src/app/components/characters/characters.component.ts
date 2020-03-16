@@ -10,6 +10,7 @@ import { DataService } from '../../data.service'
 
 export class CharactersComponent implements OnInit {
   characters : Array<any> = []
+  houses : Array<string> = []
   local : Array<string>
   name : string = ""
   search : boolean = false
@@ -19,12 +20,22 @@ export class CharactersComponent implements OnInit {
   ngOnInit() {
     this.local = this.storage.getCharacters()
     this.getAllCharacters()
+    this.getHousesId()
   }
 
   getAllCharacters() : void {
     this.api.getAllCharacters().subscribe((data : Array<any>) => {
       this.characters = data
     })
+  }
+
+  getHousesId() : void {
+    this.api.getAllHouses().subscribe((data : Array<any>) => {
+      data.forEach((house) => {
+        this.houses.push(house._id)
+      })
+    })
+    console.log(this.houses)
   }
 
   check(value : string) : boolean {
@@ -58,11 +69,8 @@ export class CharactersComponent implements OnInit {
     return false
   }
 
-   house() : void {
-    this.api.getAllHouses().subscribe((data : Array<any>) => {
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].name == this.character["house"]) this.link = data[i]._id
-      }
-    })
+  house() : string {
+    let link = "test"
+    return link
   }
 }
