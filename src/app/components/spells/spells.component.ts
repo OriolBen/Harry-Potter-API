@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ApiService } from '../../api.service'
-import { Favourite, DataService } from '../../data.service'
+import { DataService } from '../../data.service'
 
 @Component({
   selector: 'app-spells',
@@ -18,6 +18,7 @@ export class SpellsComponent implements OnInit {
 
   ngOnInit() {
     this.local = this.storage.getSpells()
+    this.getAllSpells()
   }
 
   getAllSpells() : void {
@@ -38,21 +39,23 @@ export class SpellsComponent implements OnInit {
   }
 
   searchSpells() : void {
-    this.search = true
-    this.api.getAllSpells().subscribe((data : Array<any>) => {
-      this.spells = []
-      data.forEach((spell) => {
-        if (spell.spell.toLowerCase().includes(this.name)) this.spells.push(spell)
+    if (this.name != "") {
+      this.search = true
+      this.api.getAllSpells().subscribe((data : Array<any>) => {
+        this.spells = []
+        data.forEach((spell) => {
+          if (spell.spell.toLowerCase().includes(this.name.toLowerCase())) this.spells.push(spell)
+        })
       })
-    })
+    }
   }
 
   addSpell(id) : void {
     this.local = this.storage.addFavourite("Spells", id).spells
   }
 
-  removeSpell(i) : void {
-    this.local = this.storage.removeFavourite("Spells", i)
+  removeSpell(id) : void {
+    this.local = this.storage.removeFavourite("Spells", id).spells
   }
 
   checkSpell(id) : boolean {
