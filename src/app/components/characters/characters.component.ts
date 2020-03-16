@@ -10,10 +10,17 @@ import { DataService } from '../../data.service'
 
 export class CharactersComponent implements OnInit {
   characters : Array<any> = []
-  houses : Array<string> = []
+  houses : object = {}
   local : Array<string>
   name : string = ""
-  search : boolean = false
+  filters : object = {
+    "house": "Ignore",
+    "bloodStatus": "Ignore",
+    "deathEater": "Ignore",
+    "dumbledoresArmy": "Ignore",
+    "orderOfThePhoenix": "Ignore",
+    "ministryOfMagic": "Ignore"
+  }
 
   constructor(private api : ApiService, private storage : DataService) {}
 
@@ -32,19 +39,21 @@ export class CharactersComponent implements OnInit {
   getHousesId() : void {
     this.api.getAllHouses().subscribe((data : Array<any>) => {
       data.forEach((house) => {
-        this.houses.push(house._id)
+        this.houses[house.name] = house._id
       })
     })
-    console.log(this.houses)
   }
 
   check(value : string) : boolean {
     return typeof value !== 'undefined'
   }
 
+  house(house : string) : string {
+    return this.houses[house]
+  }
+
   searchCharacters() : void {
     if (this.name != "") {
-      this.search = true
       this.api.getAllCharacters().subscribe((data : Array<any>) => {
         this.characters = []
         data.forEach((character) => {
@@ -52,6 +61,23 @@ export class CharactersComponent implements OnInit {
         })
       })
     }
+  }
+
+  customSearch() : void {
+    console.log(this.filters)
+    this.api.getAllCharacters().subscribe((data : Array<any>) => {
+      this.characters = []
+      data.forEach((character) => {
+        let stop = false
+        for (let index in this.filters) {
+          if (this.filters[index] != "Ignore") {
+            if (character[index].toString() != this.filters[index]) stop = true
+          }
+          if (stop) break
+        }
+        if (!stop) this.characters.push(character)
+      })
+    })
   }
 
   addCharacter(id : string) : void {
@@ -67,10 +93,5 @@ export class CharactersComponent implements OnInit {
       if (this.local[i] == id) return true
     }
     return false
-  }
-
-  house() : string {
-    let link = "test"
-    return link
   }
 }
