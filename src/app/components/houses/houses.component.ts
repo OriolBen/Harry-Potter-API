@@ -46,4 +46,8 @@ export class HousesComponent implements OnInit {
   checkHouse(id : string) : boolean {
     return this.local == id
   }
+
+  check(id : string) : boolean{
+    return id in this.characters
+  }
 }

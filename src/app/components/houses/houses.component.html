@@ -7,10 +7,14 @@
       <button *ngIf="checkHouse(house._id)" (click)="removeHouse(house._id)" type="button">Remove as favourite house</button>
       <ul>
         <li>Mascot: {{house.mascot}}</li>
+        <!-- Some are misspelled or do not use the full name so not posible to link them -->
         <li>Head of House: {{house.headOfHouse}}</li>
+        <!-- Some are misspelled or do not use the full name so not posible to link them -->
         <li>House Ghost: {{house.houseGhost}}</li>
+        <!-- Some are misspelled or do not use the full name so not posible to link them -->
         <li>Founder: {{house.founder}}</li>
-        <li>School: {{house.school}}</li><!-- Slytherin does not have a school, API creator probably forgot -->
+        <!-- Slytherin does not have a school, API creator probably forgot -->
+        <li>School: {{house.school}}</li>
         <li>Colors:</li>
           <ul>
             <li *ngFor="let color of house.colors">{{color}}</li>
@@ -21,7 +25,8 @@
           </ul>
         <li>Members:</li>
           <ul>
-            <li *ngFor="let ID of house.members"><a href="/character/{{ID}}">{{characters[ID]}}</a>{{ID}}</li>
+            <!-- Some members IDs do not exist so we need to filter them -->
+            <div *ngFor="let id of house.members"><li *ngIf="check(id)"><a href="/character/{{id}}">{{characters[id]}}</a>{{id}}</li></div>
           </ul>
       </ul>
     </li>
