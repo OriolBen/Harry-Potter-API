@@ -1,15 +1,16 @@
 <div>
   <h1>Houses</h1>
-  <button (click)="getAllHouses()" type="button">All Houses</button>
   <ul *ngIf="houses.length != 0">
-    <li *ngFor="let house of houses">{{house.name}}
+    <li *ngFor="let house of houses">
+      <a href="house/{{house._id}}">{{house.name}}</a>
+      <button *ngIf="!checkHouse(house._id)" (click)="addHouse(house._id)" type="button">Mark as favourite house</button>
+      <button *ngIf="checkHouse(house._id)" (click)="removeHouse(house._id)" type="button">Remove as favourite house</button>
       <ul>
-        <li>ID: {{house._id}}</li>
         <li>Mascot: {{house.mascot}}</li>
         <li>Head of House: {{house.headOfHouse}}</li>
         <li>House Ghost: {{house.houseGhost}}</li>
         <li>Founder: {{house.founder}}</li>
-        <li>School: {{house.school}}</li>
+        <li>School: {{house.school}}</li><!-- Slytherin does not have a school, API creator probably forgot -->
         <li>Colors:</li>
           <ul>
             <li *ngFor="let color of house.colors">{{color}}</li>
@@ -20,7 +21,7 @@
           </ul>
         <li>Members:</li>
           <ul>
-            <li *ngFor="let ID of house.members">ID: {{ID}}</li>
+            <li *ngFor="let ID of house.members"><a href="/character/{{ID}}">{{characters[ID]}}</a>{{ID}}</li>
           </ul>
       </ul>
     </li>

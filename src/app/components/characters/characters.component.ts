@@ -26,8 +26,8 @@ export class CharactersComponent implements OnInit {
 
   ngOnInit() {
     this.local = this.storage.getCharacters()
-    this.getAllCharacters()
     this.getHousesId()
+    this.getAllCharacters()
   }
 
   getAllCharacters() : void {

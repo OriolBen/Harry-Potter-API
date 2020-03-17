@@ -33,6 +33,10 @@ export class DataService {
   getFavourite() : Favourite {
     return this.favourite
   }
+
+  getHouse() : string {
+    return this.favourite.house
+  }
   
   getSpells() : Array<string> {
     return this.favourite.spells
@@ -57,8 +61,8 @@ export class DataService {
 
   removeFavourite(category : string, id : string) : Favourite {
     switch (category) {
-      case "House": 
-        this.favourite.house = id
+      case "house": 
+        this.favourite.house = ""
         break
       default:
         for (var i = 0; i < this.favourite[category].length; i++) {
