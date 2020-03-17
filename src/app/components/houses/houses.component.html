@@ -26,7 +26,7 @@
         <li>Members:</li>
           <ul>
             <!-- Some members IDs do not exist so we need to filter them -->
-            <div *ngFor="let id of house.members"><li *ngIf="check(id)"><a href="/character/{{id}}">{{characters[id]}}</a>{{id}}</li></div>
+            <div *ngFor="let id of house.members"><li *ngIf="check(id)"><a href="/character/{{id}}">{{characters[id]}}</a></li></div>
           </ul>
       </ul>
     </li>
