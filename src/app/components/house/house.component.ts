@@ -55,7 +55,7 @@ export class HouseComponent implements OnInit {
     return this.local == id
   }
 
-  check(member : object) : boolean {
-    return member["_id"] in this.characters
+  check(id : string) : boolean {
+    return id in this.characters
   }
 }
