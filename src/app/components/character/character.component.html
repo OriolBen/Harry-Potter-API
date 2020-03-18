@@ -3,7 +3,7 @@
 	<button *ngIf="!checkCharacter()" (click)="addCharacter()" type="button">Add to favourites</button>
 	<button *ngIf="checkCharacter()" (click)="removeCharacter()" type="button">Remove from favourites</button>
 	<ul>
-		<li *ngIf="check(character.house)">House: <a href="house/{{link}}">{{character.house}}</a></li>
+		<li *ngIf="check(character.house)">House: <a href="houses/{{link}}">{{character.house}}</a></li>
 		<li *ngIf="check(character.patronus)">Patronus: {{character.patronus}}</li>
 		<li *ngIf="check(character.species)">Species: {{character.species}}</li>
 		<li *ngIf="check(character.bloodStatus)">Blood Status: {{character.bloodStatus}}</li>

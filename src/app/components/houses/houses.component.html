@@ -2,7 +2,7 @@
   <h1>Houses</h1>
   <ul *ngIf="houses.length != 0">
     <li *ngFor="let house of houses">
-      <a href="house/{{house._id}}">{{house.name}}</a>
+      <a href="houses/{{house._id}}">{{house.name}}</a>
       <button *ngIf="!checkHouse(house._id)" (click)="addHouse(house._id)" type="button">Mark as favourite house</button>
       <button *ngIf="checkHouse(house._id)" (click)="removeHouse(house._id)" type="button">Remove as favourite house</button>
       <ul>
@@ -15,19 +15,22 @@
         <li>Founder: {{house.founder}}</li>
         <!-- Slytherin does not have a school, API creator probably forgot -->
         <li>School: {{house.school}}</li>
-        <li>Colors:</li>
+        <li>Colors:
           <ul>
             <li *ngFor="let color of house.colors">{{color}}</li>
           </ul>
-        <li>Values:</li>
+        </li>
+        <li>Values:
           <ul>
             <li *ngFor="let value of house.values">{{value}}</li>
           </ul>
-        <li>Members:</li>
+        </li>
+        <li>Members:
           <ul>
             <!-- Some members IDs do not exist so we need to filter them -->
-            <div *ngFor="let id of house.members"><li *ngIf="check(id)"><a href="/character/{{id}}">{{characters[id]}}</a></li></div>
+            <div *ngFor="let id of house.members"><li *ngIf="check(id)"><a href="characters/{{id}}">{{characters[id]}}</a></li></div>
           </ul>
+        </li>
       </ul>
     </li>
   </ul>

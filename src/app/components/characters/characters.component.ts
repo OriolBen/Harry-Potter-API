@@ -64,7 +64,6 @@ export class CharactersComponent implements OnInit {
   }
 
   customSearch() : void {
-    console.log(this.filters)
     this.api.getAllCharacters().subscribe((data : Array<any>) => {
       this.characters = []
       data.forEach((character) => {

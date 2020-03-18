@@ -18,7 +18,7 @@ const routes: Routes = [
     component: CharactersComponent
   },
   {
-    path: 'character/:id',
+    path: 'characters/:id',
     component: CharacterComponent
   },
   {
@@ -26,7 +26,7 @@ const routes: Routes = [
     component: HousesComponent
   },
   {
-    path: 'house/:id',
+    path: 'houses/:id',
     component: HouseComponent
   },
   {

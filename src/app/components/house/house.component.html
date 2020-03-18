@@ -1,33 +1,35 @@
-<div>
-  <h1>House</h1>
-  <select #input (change)="getHouse(input.value)">
-    <option value="" disabled selected>Select a house</option>
-    <option value="5a05e2b252f721a3cf2ea33f">Gryffindor</option>
-    <option value="5a05dc8cd45bd0a11bd5e071">Slytherin</option>
-    <option value="5a05da69d45bd0a11bd5e06f">Ravenclaw</option>
-    <option value="5a05dc58d45bd0a11bd5e070">Hufflepuff</option>
-  </select>
-  <ul *ngIf="house.length != 0">
-    <li *ngFor="let data of house">{{data.name}}
+<div *ngIf="exists">
+  <h1>{{house.name}}</h1>
+  <button *ngIf="!checkHouse(house._id)" (click)="addHouse(house._id)" type="button">Mark as favourite house</button>
+  <button *ngIf="checkHouse(house._id)" (click)="removeHouse(house._id)" type="button">Remove as favourite house</button>
+  <ul>
+    <li>Mascot: {{house.mascot}}</li>
+    <!-- Some are misspelled or do not use the full name so not possible to link them -->
+    <li>Head of House: {{house.headOfHouse}}</li>
+    <!-- Some are misspelled or do not use the full name so not possible to link them -->
+    <li>House Ghost: {{house.houseGhost}}</li>
+    <!-- Some are misspelled or do not use the full name so not possible to link them -->
+    <li>Founder: {{house.founder}}</li>
+    <!-- Slytherin does not have a school, API creator probably forgot -->
+    <li>School: {{house.school}}</li>
+    <li>Colors:
       <ul>
-        <li>Mascot: {{data.mascot}}</li>
-        <li>Head of House: {{data.headOfHouse}}</li>
-        <li>House Ghost: {{data.houseGhost}}</li>
-        <li>Founder: {{data.founder}}</li>
-        <li>School: {{data.school}}</li>
-        <li>Colors:</li>
-          <ul>
-            <li *ngFor="let color of data.colors">{{color}}</li>
-          </ul>
-        <li>Values:</li>
-          <ul>
-            <li *ngFor="let value of data.values">{{value}}</li>
-          </ul>
-        <li>Members:</li>
-          <ul>
-            <li *ngFor="let member of data.members">{{member.name}} ({{member._id}})</li>
-          </ul>
+        <li *ngFor="let color of house.colors">{{color}}</li>
+      </ul>
+    </li>
+    <li>Values:
+      <ul>
+        <li *ngFor="let value of house.values">{{value}}</li>
+      </ul>
+    </li>
+    <li>Members:
+      <ul>
+        <!-- Some members IDs do not exist so we need to filter them -->
+        <div *ngFor="let id of house.members"><li *ngIf="check(house.members[0]._id)"><a href="characters/{{id}}">{{characters[id]}}</a></li></div>
       </ul>
     </li>
   </ul>
+</div>
+<div *ngIf="!exists">
+	<h1>House does not exist!</h1>
 </div>
