@@ -30,17 +30,17 @@ export class CharactersComponent implements OnInit {
     this.getAllCharacters()
   }
 
-  getAllCharacters() : void {
-    this.api.getAllCharacters().subscribe((data : Array<any>) => {
-      this.characters = data
-    })
-  }
-
   getHousesId() : void {
     this.api.getAllHouses().subscribe((data : Array<any>) => {
       data.forEach((house) => {
         this.houses[house.name] = house._id
       })
+    })
+  }
+
+  getAllCharacters() : void {
+    this.api.getAllCharacters().subscribe((data : Array<any>) => {
+      this.characters = data
     })
   }
 

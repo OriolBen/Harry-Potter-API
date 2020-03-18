@@ -26,7 +26,7 @@ export class SpellsComponent implements OnInit {
     })
   }
 
-  getSpells(type) : void {
+  getSpells(type : string) : void {
     this.api.getAllSpells().subscribe((data : Array<any>) => {
       this.spells = []
       data.forEach((spell) => {
@@ -46,15 +46,15 @@ export class SpellsComponent implements OnInit {
     }
   }
 
-  addSpell(id) : void {
+  addSpell(id : string) : void {
     this.local = this.storage.addFavourite("spells", id).spells
   }
 
-  removeSpell(id) : void {
+  removeSpell(id : string) : void {
     this.local = this.storage.removeFavourite("spells", id).spells
   }
 
-  checkSpell(id) : boolean {
+  checkSpell(id : string) : boolean {
     for (var i = 0; i < this.local.length; i++) {
       if (this.local[i] == id) return true
     }
