@@ -1,6 +1,50 @@
 <div *ngIf="!empty">
+  <h1>Favourites</h1>
+  <hr>
+
+
+  <div *ngIf="!emptyHouse">
+    <h2>{{house.name}} is your favourite house!</h2>
+    <button *ngIf="checkHouse(house._id)" (click)="removeHouse(house._id)" type="button">Remove as favourite house</button>
+    <ul>
+      <li>Mascot: {{house.mascot}}</li>
+      <!-- Some are misspelled or do not use the full name so not possible to link them -->
+      <li>Head of House: {{house.headOfHouse}}</li>
+      <!-- Some are misspelled or do not use the full name so not possible to link them -->
+      <li>House Ghost: {{house.houseGhost}}</li>
+      <!-- Some are misspelled or do not use the full name so not possible to link them -->
+      <li>Founder: {{house.founder}}</li>
+      <!-- Slytherin does not have a school, API creator probably forgot -->
+      <li>School: {{house.school}}</li>
+      <li>Colors:
+        <ul>
+          <li *ngFor="let color of house.colors">{{color}}</li>
+        </ul>
+      </li>
+      <li>Values:
+        <ul>
+          <li *ngFor="let value of house.values">{{value}}</li>
+        </ul>
+      </li>
+      <li>Members:
+        <ul>
+          <!-- Some members IDs do not exist so we need to filter them -->
+          <div *ngFor="let member of house.members"><li *ngIf="checkHouseCharacters(member._id)"><a href="characters/{{member._id}}">{{characters[member._id]}}</a></li></div>
+        </ul>
+      </li>
+    </ul>
+
+
+  </div>
+  <div *ngIf="emptyHouse">
+    <h2>You do not have a favourite house!</h2>
+  </div>
+  <hr>
+  
+
+
+
 </div>
-<div>
 <div *ngIf="empty">
   <h1>You have no favourites :(</h1>
 </div>
