@@ -10,8 +10,12 @@ import { DataService } from '../../data.service'
 
 export class SpellsComponent implements OnInit {
   spells : Array<any> = []
-  local : Array<string>
+  local : Array<string> = []
+  temporary : string = ""
   name : string = ""
+  option : string = ""
+  filter : string = "none"
+  filtered : Array<any> = []
 
   constructor(private api : ApiService, private storage : DataService) {}
 
@@ -23,27 +27,28 @@ export class SpellsComponent implements OnInit {
   getAllSpells() : void {
     this.api.getAllSpells().subscribe((data : Array<any>) => {
       this.spells = data
+      this.filtered = data
     })
   }
 
-  getSpells(type : string) : void {
-    this.api.getAllSpells().subscribe((data : Array<any>) => {
-      this.spells = []
-      data.forEach((spell) => {
-        if (spell.type == type) this.spells.push(spell)
-      })
-    })
+  updateFilter(category : string) : void {
+    this.filter = category
+    if (this.filter == "name") this.name = this.temporary
   }
 
-  searchSpells() : void {
-    if (this.name != "") {
-      this.api.getAllSpells().subscribe((data : Array<any>) => {
-        this.spells = []
-        data.forEach((spell) => {
-          if (spell.spell.toLowerCase().includes(this.name.toLowerCase())) this.spells.push(spell)
-        })
-      })
+  applyFilter() : Array<any> {
+    switch (this.filter) {
+      case "none": 
+        this.filtered = this.spells
+        break
+      case "type":
+        this.filtered = this.spells.filter((spell) => spell.type == this.option)
+        break
+      case "name":
+        this.filtered = this.spells.filter((spell) => spell.spell.toLowerCase().includes(this.name.toLowerCase()))
+        break
     }
+    return this.filtered
   }
 
   addSpell(id : string) : void {

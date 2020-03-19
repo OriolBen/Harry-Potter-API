@@ -1,9 +1,9 @@
 <div>
   <h1>Characters</h1>
-  <button (click)="getAllCharacters()" type="button">All Characters</button>
+  <button (click)="updateFilter('none', 'none')" type="button">All Characters</button>
   <p>
-    <input (keyup.enter)="searchCharacters()" [(ngModel)]="name" placeholder="Characters by name">
-    <button (click)="searchCharacters()" type="button">Search</button>
+    <input (keyup.enter)="updateFilter('name', name)" [(ngModel)]="name" placeholder="Characters by name">
+    <button (click)="updateFilter('name', name)" type="button">Search</button>
   </p>
   <p>House:
     <select [(ngModel)]="filters['house']">
@@ -51,7 +51,7 @@
       <option value="false">No</option>
     </select>
   </p>
-  <button (click)="customSearch()" type="button">Custom search</button>
+  <button (click)="updateFilter('custom', filters)" type="button">Custom search</button>
   <ul *ngIf="characters.length != 0">
     <li *ngFor="let character of characters">
       <a href="characters/{{character._id}}">{{character.name}}</a>

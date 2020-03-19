@@ -11,7 +11,7 @@ import { DataService } from '../../data.service'
 export class CharactersComponent implements OnInit {
   characters : Array<any> = []
   houses : object = {}
-  local : Array<string>
+  local : Array<string> = []
   name : string = ""
   filters : object = {
     "house": "Ignore",
