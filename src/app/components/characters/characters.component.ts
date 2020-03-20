@@ -13,7 +13,11 @@ export class CharactersComponent implements OnInit {
   houses : object = {}
   local : Array<string> = []
   name : string = ""
-  filters : object = {
+  temporaryName : string = ""
+  filtered : Array<any> = []
+  filter : string = "none"
+  filters : object = {}
+  temporaryFilters : object = {
     "house": "Ignore",
     "bloodStatus": "Ignore",
     "deathEater": "Ignore",
@@ -41,6 +45,7 @@ export class CharactersComponent implements OnInit {
   getAllCharacters() : void {
     this.api.getAllCharacters().subscribe((data : Array<any>) => {
       this.characters = data
+      this.filtered = data
     })
   }
 
@@ -52,30 +57,52 @@ export class CharactersComponent implements OnInit {
     return this.houses[house]
   }
 
-  searchCharacters() : void {
-    if (this.name != "") {
-      this.api.getAllCharacters().subscribe((data : Array<any>) => {
-        this.characters = []
-        data.forEach((character) => {
-          if (character.name.toLowerCase().includes(this.name.toLowerCase())) this.characters.push(character)
-        })
-      })
+  updateFilter(category : string) : void {
+    this.filter = category
+    switch (this.filter) {
+      case "name":
+        this.name = this.temporaryName
+        break
+      case "custom":
+        this.filters = this.temporaryFilters
+        break
     }
+    console.log(this.temporaryFilters)
+    console.log(this.filters)
+  }
+
+  applyFilter() : Array<any> {
+    switch (this.filter) {
+      case "none": 
+        this.filtered = this.characters
+        break
+      case "name":
+        this.filtered = this.characters.filter((character) => character.name.toLowerCase().includes(this.name.toLowerCase()))
+        break
+      case "custom":
+        this.filter = "ignore"
+        this.filtered = this.characters.filter((character) => {
+          let stop = false
+          for (let index in this.filters) {
+            if (this.filters[index] != "Ignore") {
+              if (this.check(character[index])) {
+                if (character[index].toString() != this.filters[index]) stop = true
+              }
+              else stop = true
+              if (stop) break
+            }
+          }
+          return !stop
+        })
+        break
+    }
+    return this.filtered
   }
 
   customSearch() : void {
     this.api.getAllCharacters().subscribe((data : Array<any>) => {
       this.characters = []
-      data.forEach((character) => {
-        let stop = false
-        for (let index in this.filters) {
-          if (this.filters[index] != "Ignore") {
-            if (character[index].toString() != this.filters[index]) stop = true
-          }
-          if (stop) break
-        }
-        if (!stop) this.characters.push(character)
-      })
+      
     })
   }
 

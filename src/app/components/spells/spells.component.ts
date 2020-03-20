@@ -11,7 +11,7 @@ import { DataService } from '../../data.service'
 export class SpellsComponent implements OnInit {
   spells : Array<any> = []
   local : Array<string> = []
-  temporary : string = ""
+  temporaryName : string = ""
   name : string = ""
   option : string = ""
   filter : string = "none"
@@ -33,7 +33,7 @@ export class SpellsComponent implements OnInit {
 
   updateFilter(category : string) : void {
     this.filter = category
-    if (this.filter == "name") this.name = this.temporary
+    if (this.filter == "name") this.name = this.temporaryName
   }
 
   applyFilter() : Array<any> {

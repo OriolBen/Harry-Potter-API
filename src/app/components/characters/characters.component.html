@@ -1,12 +1,12 @@
 <div>
   <h1>Characters</h1>
-  <button (click)="updateFilter('none', 'none')" type="button">All Characters</button>
+  <button (click)="updateFilter('none')" type="button">All Characters</button>
   <p>
-    <input (keyup.enter)="updateFilter('name', name)" [(ngModel)]="name" placeholder="Characters by name">
-    <button (click)="updateFilter('name', name)" type="button">Search</button>
+    <input (keyup.enter)="updateFilter('name')" [(ngModel)]="temporaryName" placeholder="Characters by name">
+    <button (click)="updateFilter('name')" type="button">Search</button>
   </p>
   <p>House:
-    <select [(ngModel)]="filters['house']">
+    <select [(ngModel)]="temporaryFilters['house']">
       <option value="Ignore" selected>Ignore</option>
       <option value="Gryffindor">Gryffindor</option>
       <option value="Ravenclaw">Ravenclaw</option>
@@ -15,7 +15,7 @@
     </select>
   </p>
   <p>Blood Status:
-    <select [(ngModel)]="filters['bloodStatus']">
+    <select [(ngModel)]="temporaryFilters['bloodStatus']">
       <option value="Ignore" selected>Ignore</option>
       <option value="pure-blood">Pure-blood</option>
       <option value="half-blood">Half-blood</option>
@@ -24,36 +24,36 @@
     </select>
   </p>
   <p>Death Eater:
-    <select [(ngModel)]="filters['deathEater']">
+    <select [(ngModel)]="temporaryFilters['deathEater']">
       <option value="Ignore" selected>Ignore</option>
       <option value="true">Yes</option>
       <option value="false">No</option>
     </select>
   </p>
   <p>Dumbledore's Army:
-    <select [(ngModel)]="filters['dumbledoresArmy']">
+    <select [(ngModel)]="temporaryFilters['dumbledoresArmy']">
       <option value="Ignore" selected>Ignore</option>
       <option value="true">Yes</option>
       <option value="false">No</option>
     </select>
   </p>
   <p>Order of the Phoenix:
-    <select [(ngModel)]="filters['orderOfThePhoenix']">
+    <select [(ngModel)]="temporaryFilters['orderOfThePhoenix']">
       <option value="Ignore" selected>Ignore</option>
       <option value="true">Yes</option>
       <option value="false">No</option>
     </select>
   </p>
   <p>Ministry of Magic:
-    <select [(ngModel)]="filters['ministryOfMagic']">
+    <select [(ngModel)]="temporaryFilters['ministryOfMagic']">
       <option value="Ignore" selected>Ignore</option>
       <option value="true">Yes</option>
       <option value="false">No</option>
     </select>
   </p>
-  <button (click)="updateFilter('custom', filters)" type="button">Custom search</button>
-  <ul *ngIf="characters.length != 0">
-    <li *ngFor="let character of characters">
+  <button (click)="updateFilter('custom')" type="button">Custom search</button>
+  <ul>
+    <li *ngFor="let character of applyFilter()">
       <a href="characters/{{character._id}}">{{character.name}}</a>
       <button *ngIf="!checkCharacter(character._id)" (click)="addCharacter(character._id)" type="button">Add to favourites</button>
       <button *ngIf="checkCharacter(character._id)" (click)="removeCharacter(character._id)" type="button">Remove from favourites</button>
@@ -75,5 +75,5 @@
       </ul>
     </li>
   </ul>
-  <h1 *ngIf="characters.length == 0">No characters were found!</h1>
+  <h1 *ngIf="filtered.length == 0">No characters were found!</h1>
 </div>
