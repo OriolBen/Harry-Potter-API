@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module'
 // Firebase
 import { AngularFireModule } from '@angular/fire'
 import { AngularFireAuth } from '@angular/fire/auth'
+import { AngularFireDatabaseModule } from '@angular/fire/database'
 
 // Services
 import { ApiService } from './services/api.service'
@@ -46,7 +47,8 @@ import { AccountComponent } from './components/account/account.component'
       storageBucket: "harry-potter-api-e764c.appspot.com",
       messagingSenderId: "375890053637",
       appId: "1:375890053637:web:1f83020707079f55e2aa6c"
-    })
+    }),
+    AngularFireDatabaseModule
   ],
   declarations: [ 
     AppComponent,
@@ -70,8 +72,8 @@ import { AccountComponent } from './components/account/account.component'
   providers: [
     ApiService,
     DataService,
-    AuthenticationService,
-    AngularFireAuth
+    AngularFireAuth,
+    AuthenticationService
   ]
 })
 
