@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import { ApiService } from '../../api.service'
-import { Favourite, DataService } from '../../data.service'
+import { ApiService } from '../../services/api.service'
+import { Favourite, DataService } from '../../services/data.service'
 
 @Component({
   selector: 'app-favourites',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import { ApiService } from '../../api.service'
-import { DataService } from '../../data.service'
+import { ApiService } from '../../services/api.service'
+import { DataService } from '../../services/data.service'
 import { ActivatedRoute } from '@angular/router'
 
 @Component({
