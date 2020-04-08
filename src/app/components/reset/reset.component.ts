@@ -19,6 +19,6 @@ export class ResetComponent {
         alert("You are already logged in!")
         this.router.navigate([""])
       }
-    }, 1000)
+    }, 2500)
   }
 }

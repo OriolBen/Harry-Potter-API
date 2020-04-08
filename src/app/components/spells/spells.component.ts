@@ -12,6 +12,7 @@ import { AuthenticationService } from '../../services/authentication.service'
 export class SpellsComponent implements OnInit {
   spells : Array<any> = []
   local : Array<string> = []
+  online : Array<string> = []
   temporaryName : string = ""
   name : string = ""
   option : string = ""
@@ -52,15 +53,15 @@ export class SpellsComponent implements OnInit {
     return this.filtered
   }
 
-  addSpell(id : string) : void {
+  addSpellLocal(id : string) : void {
     this.local = this.storage.addFavouriteLocal("spells", id).spells
   }
 
-  removeSpell(id : string) : void {
+  removeSpellLocal(id : string) : void {
     this.local = this.storage.removeFavouriteLocal("spells", id).spells
   }
 
-  checkSpell(id : string) : boolean {
+  checkSpellLocal(id : string) : boolean {
     for (var i = 0; i < this.local.length; i++) {
       if (this.local[i] == id) return true
     }

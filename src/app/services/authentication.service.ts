@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { AngularFireAuth } from '@angular/fire/auth'
 import { auth } from 'firebase/app'
+import { AngularFireDatabase } from '@angular/fire/database'
 
 @Injectable()
 
@@ -11,7 +12,7 @@ export class AuthenticationService {
   displayName : string = ""
   logged : boolean = false
 
-  constructor(private afAuth : AngularFireAuth, private router : Router) { 
+  constructor(private afAuth : AngularFireAuth, private router : Router, private db : AngularFireDatabase) { 
     this.user = afAuth.authState
     this.user.subscribe((user) => { 
       if (user) {
@@ -25,6 +26,16 @@ export class AuthenticationService {
 
   signInGoogle() {
     return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then((result) => {
+      this.db.database.ref(result.user.uid).once("value").then((snapshot) => {
+        if (snapshot.val() === null) {
+          this.db.database.ref(result.user.uid).set({
+            house: "",
+            characters: "",
+            spells: "",
+          })
+        }
+      })
+      alert("Successful login.")
       this.logged = true
       window.location.href = "https://harry-potter-api-part-3.stackblitz.io/"
     }).catch((e) => alert(e.message))
@@ -32,10 +43,19 @@ export class AuthenticationService {
 
   signInRegular(email: string, password: string) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((result) => {
+      this.db.database.ref(result.user.uid).once("value").then((snapshot) => {
+        if (snapshot.val() === null) {
+          this.db.database.ref(result.user.uid).set({
+            house: "",
+            characters: "",
+            spells: "",
+          })
+        }
+      })
       this.afAuth.auth.currentUser.sendEmailVerification()
       alert("Successful registration.\nPlease verify your email address.")
       this.logged = true
-      this.router.navigate([""])
+      window.location.href = "https://harry-potter-api-part-3.stackblitz.io/"
     }).catch((e) => alert(e.message))
   }
 

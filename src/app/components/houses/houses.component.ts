@@ -53,7 +53,9 @@ export class HousesComponent implements OnInit {
   }
 
   removeHouseOnline(id : string) : void {
+    console.log(this.online)
     this.online = this.storage.removeFavouriteOnline("house", id).house
+    console.log(this.online)
   }
 
   checkHouseLocal(id : string) : boolean {
