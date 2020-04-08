@@ -28,7 +28,8 @@ export class AuthenticationService {
     return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then((result) => {
       this.db.database.ref(result.user.uid).once("value").then((snapshot) => {
         if (snapshot.val() === null) {
-          this.db.database.ref(result.user.uid).update({
+          console.log("HERE")
+          this.db.database.ref(result.user.uid).set({
             house: "",
             characters: "",
             spells: "",
@@ -45,7 +46,7 @@ export class AuthenticationService {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((result) => {
       this.db.database.ref(result.user.uid).once("value").then((snapshot) => {
         if (snapshot.val() === null) {
-          this.db.database.ref(result.user.uid).update({
+          this.db.database.ref(result.user.uid).set({
             house: "",
             characters: "",
             spells: "",
