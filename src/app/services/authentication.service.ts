@@ -38,7 +38,7 @@ export class AuthenticationService {
       })
       alert("Successful login.")
       this.logged = true
-      window.location.href = "https://harry-potter-api-part-3.stackblitz.io/"
+      this.router.navigate([""])
     }).catch((e) => alert(e.message))
   }
 
@@ -56,7 +56,7 @@ export class AuthenticationService {
       this.afAuth.auth.currentUser.sendEmailVerification()
       alert("Successful registration.\nPlease verify your email address.")
       this.logged = true
-      window.location.href = "https://harry-potter-api-part-3.stackblitz.io/"
+      this.router.navigate([""])
     }).catch((e) => alert(e.message))
   }
 
