@@ -11,8 +11,6 @@ import { AuthenticationService } from '../../services/authentication.service'
 
 export class SpellsComponent implements OnInit {
   spells : Array<any> = []
-  local : Array<string> = []
-  online : Array<string> = []
   temporaryName : string = ""
   name : string = ""
   option : string = ""
@@ -22,7 +20,6 @@ export class SpellsComponent implements OnInit {
   constructor(private api : ApiService, private storage : DataService, private authService : AuthenticationService) {}
 
   ngOnInit() {
-    this.local = this.storage.getSpellsLocal()
     this.getAllSpells()
   }
 
@@ -54,16 +51,31 @@ export class SpellsComponent implements OnInit {
   }
 
   addSpellLocal(id : string) : void {
-    this.local = this.storage.addFavouriteLocal("spells", id).spells
+    this.storage.addFavouriteLocal("spells", id)
+  }
+
+  addSpellOnline(id : string) : void {
+    this.storage.addFavouriteOnline("spells", id)
   }
 
   removeSpellLocal(id : string) : void {
-    this.local = this.storage.removeFavouriteLocal("spells", id).spells
+    this.storage.removeFavouriteLocal("spells", id)
+  }
+
+  removeSpellOnline(id : string) : void {
+    this.storage.removeFavouriteOnline("spells", id)
   }
 
   checkSpellLocal(id : string) : boolean {
-    for (var i = 0; i < this.local.length; i++) {
-      if (this.local[i] == id) return true
+    for (let i = 0; i < this.storage.local.spells.length; i++) {
+      if (this.storage.local.spells[i] == id) return true
+    }
+    return false
+  }
+
+  checkSpellOnline(id : string) : boolean {
+    for (let i = 0; i < this.storage.online.spells.length; i++) {
+      if (this.storage.online.spells[i] == id) return true
     }
     return false
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, NgZone } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { AuthenticationService } from '../../services/authentication.service'
 
@@ -14,7 +14,7 @@ export class AccountComponent implements OnInit {
   mode : string = ""
   oobCode : string = ""
 
-  constructor(private authService : AuthenticationService, private route : ActivatedRoute, private router : Router) {}
+  constructor(private ngZone: NgZone, private authService : AuthenticationService, private route : ActivatedRoute, private router : Router) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -26,11 +26,11 @@ export class AccountComponent implements OnInit {
         this.authService.checkOobCode(this.mode, this.oobCode)
         break
       case "verifyEmail":
-        setTimeout(() => { this.authService.checkOobCode(this.mode, this.oobCode) }, 2500)
+        this.authService.checkOobCode(this.mode, this.oobCode)
         break
       default:
         alert("URL is not valid")
-        this.router.navigate([""])
+        this.ngZone.run(() => this.router.navigate([""]))
         break
     }
   }

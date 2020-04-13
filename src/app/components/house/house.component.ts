@@ -11,22 +11,16 @@ import { AuthenticationService } from '../../services/authentication.service'
 })
 
 export class HouseComponent implements OnInit {
-  house : object
-  local : string
-  online : string
-  id : string
-  exists : boolean
+  house : object = {}
+  id : string = ""
+  exists : boolean = false
   characters : object = {}
 
   constructor(private api : ApiService, private storage : DataService, private route : ActivatedRoute, private authService : AuthenticationService) {}
 
   ngOnInit() {
     this.route.params.subscribe(res => this.id = res.id)
-    this.local = this.storage.getHouseLocal()
     this.getHouse()
-    setTimeout(() => {
-      if (this.authService.isLoggedIn()) this.storage.getHouseOnline().subscribe((house) => this.online = house)
-    }, 2500)
   }
 
   getHouse() : void {
@@ -49,27 +43,27 @@ export class HouseComponent implements OnInit {
   }
 
   addHouseLocal(id : string) : void {
-    this.local = this.storage.addFavouriteLocal("house", id).house
+    this.storage.addFavouriteLocal("house", id)
   }
 
   addHouseOnline(id : string) : void {
-    this.online = this.storage.addFavouriteOnline("house", id).house
+    this.storage.addFavouriteOnline("house", id)
   }
 
   removeHouseLocal(id : string) : void {
-    this.local = this.storage.removeFavouriteLocal("house", id).house
+    this.storage.removeFavouriteLocal("house", id)
   }
 
   removeHouseOnline(id : string) : void {
-    this.online = this.storage.removeFavouriteOnline("house", id).house
+    this.storage.removeFavouriteOnline("house", id)
   }
 
   checkHouseLocal(id : string) : boolean {
-    return this.local == id
+    return this.storage.local.house == id
   }
 
   checkHouseOnline(id : string) : boolean {
-    return this.online == id
+    return this.storage.online.house == id
   }
 
   check(id : string) : boolean {

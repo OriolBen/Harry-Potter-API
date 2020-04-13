@@ -12,7 +12,6 @@ import { AuthenticationService } from '../../services/authentication.service'
 export class CharactersComponent implements OnInit {
   characters : Array<any> = []
   houses : object = {}
-  local : Array<string> = []
   name : string = ""
   temporaryName : string = ""
   filtered : Array<any> = []
@@ -30,7 +29,6 @@ export class CharactersComponent implements OnInit {
   constructor(private api : ApiService, private storage : DataService, private authService : AuthenticationService) {}
 
   ngOnInit() {
-    this.local = this.storage.getCharactersLocal()
     this.getHousesId()
     this.getAllCharacters()
   }
@@ -105,17 +103,32 @@ export class CharactersComponent implements OnInit {
     })
   }
 
-  addCharacter(id : string) : void {
-    this.local = this.storage.addFavouriteLocal("characters", id).characters
+  addCharacterLocal(id : string) : void {
+    this.storage.addFavouriteLocal("characters", id)
   }
 
-  removeCharacter(id : string) : void {
-    this.local = this.storage.removeFavouriteLocal("characters", id).characters
+  addCharacterOnline(id : string) : void {
+    this.storage.addFavouriteOnline("characters", id)
   }
 
-  checkCharacter(id : string) : boolean {
-    for (var i = 0; i < this.local.length; i++) {
-      if (this.local[i] == id) return true
+  removeCharacterLocal(id : string) : void {
+    this.storage.removeFavouriteLocal("characters", id)
+  }
+
+  removeCharacterOnline(id : string) : void {
+    this.storage.removeFavouriteOnline("characters", id)
+  }
+
+  checkCharacterLocal(id : string) : boolean {
+    for (let i = 0; i < this.storage.local.characters.length; i++) {
+      if (this.storage.local.characters[i] == id) return true
+    }
+    return false
+  }
+
+  checkCharacterOnline(id : string) : boolean {
+    for (let i = 0; i < this.storage.online.characters.length; i++) {
+      if (this.storage.online.characters[i] == id) return true
     }
     return false
   }

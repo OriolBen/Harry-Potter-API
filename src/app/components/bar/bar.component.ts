@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, NgZone } from '@angular/core'
 import { AuthenticationService } from '../../services/authentication.service'
 
 @Component({
@@ -9,16 +9,16 @@ import { AuthenticationService } from '../../services/authentication.service'
 
 export class BarComponent {
   message : string = ""
-  show : boolean = false
+  logged : boolean = false
 
-  constructor(private authService : AuthenticationService) {}
+  constructor(private ngZone: NgZone, private authService : AuthenticationService) {}
 
   ngOnInit() {
-    setTimeout(() => {
-      if (this.authService.isLoggedIn()) {
-        this.message = "Welcome back, " + this.authService.userDetails.email
-        this.show = true
-      }
-    }, 2500)
+    this.authService.afAuth.auth.onAuthStateChanged((user) => {
+      this.ngZone.run(() => {
+        if (user != null) this.logged = true
+        else this.logged = false
+      })
+    })
   }
 }
