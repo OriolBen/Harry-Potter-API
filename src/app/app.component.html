@@ -1,0 +1,39 @@
+<mat-sidenav-container [hasBackdrop]="false">
+  <mat-sidenav #sidenav id="sticky">
+    <mat-toolbar>
+      <mat-toolbar-row *ngIf="!authService.logged">
+        <button class="space" mat-flat-button color="accent" routerLink="/login" (click)="sidenav.toggle()"><fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon> LOGIN</button>
+      </mat-toolbar-row>
+      <mat-toolbar-row *ngIf="!authService.logged">
+        <button class="space" mat-flat-button color="accent" routerLink="/register" (click)="sidenav.toggle()"><fa-icon [icon]="['fas', 'user-plus']"></fa-icon> REGISTER</button>
+      </mat-toolbar-row>
+      <mat-toolbar-row *ngIf="authService.logged" class="mat-caption">
+        <p><fa-icon [icon]="['fas', 'user']"></fa-icon> {{authService.userDetails.email}}</p>
+      </mat-toolbar-row>
+      <mat-toolbar-row *ngIf="authService.logged">
+        <button class="space" mat-flat-button color="accent" routerLink="/register" (click)="logout(sidenav)"><fa-icon [icon]="['fas', 'sign-out-alt']"></fa-icon> LOGOUT</button>
+      </mat-toolbar-row>
+      <mat-toolbar-row>
+        <button class="space" mat-flat-button color="accent" (click)="sidenav.toggle()"><fa-icon [icon]="['fas', 'times']"></fa-icon> CLOSE</button>
+      </mat-toolbar-row>
+      <img id="bottom" src="https://cdn.jsdelivr.net/gh/OriolBen/Harry-Potter-API-part-4@master/src/app/assets/Hogwarts.png">
+    </mat-toolbar>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div id="wrapper"> 
+      <mat-toolbar>
+        <mat-toolbar-row id="center">
+          <button mat-icon-button (click)="sidenav.toggle()"><fa-icon [icon]="['fas', 'bars']" size="lg"></fa-icon></button>
+          <a routerLink=""><img src="https://cdn.jsdelivr.net/gh/OriolBen/Harry-Potter-API-part-4@master/src/app/assets/Hogwarts.png" width="50px"></a>
+          <a routerLink=""><h1 class="mat-display-h1">Harry Potter API</h1></a>
+        </mat-toolbar-row>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+    </div>
+    <mat-toolbar id="footer">
+      <mat-toolbar-row >
+        <span><p id="down" class="mat-small">© 2020 - Oriol Serrabassa & Vandame Hrustic</p></span>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </mat-sidenav-content>
+</mat-sidenav-container>
