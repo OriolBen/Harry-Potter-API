@@ -44,6 +44,7 @@ export class FavouritesComponent implements OnInit {
   constructor(private api : ApiService, private storage : DataService, private authService : AuthenticationService) {}
 
   ngOnInit() {
+    this.api.call(true)
     this.local = this.storage.getFavouriteLocal()
     this.localEmptyHouse = this.local.house == "" ? true : false
     if (!this.localEmptyHouse) {
@@ -80,6 +81,7 @@ export class FavouritesComponent implements OnInit {
           this.ready = true
         })
       }
+      this.api.call(false)
     })
   }
 

@@ -24,9 +24,11 @@ export class SpellsComponent implements OnInit {
   }
 
   getAllSpells() : void {
+    this.api.call(true)
     this.api.getAllSpells().subscribe((data : Array<any>) => {
       this.spells = data
       this.filtered = data
+      
     })
   }
 

@@ -52,9 +52,6 @@ export class LoadingService {
         this.authentication = value
         break
     }
-    console.log("Storage: " + this.storage)
-    console.log("API: " + this.api)
-    console.log("Authentication: " + this.authentication)
     this.check()
   }
 

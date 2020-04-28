@@ -24,8 +24,12 @@ export class HouseComponent implements OnInit {
   }
 
   getHouse() : void {
+    this.api.call(true)
     this.api.getHouse(this.id).subscribe((data : object) => {
-      if (data.hasOwnProperty('message')) this.exists = false
+      if (data.hasOwnProperty('message')) {
+        this.exists = false
+        this.api.call(false)
+      }
       else {
         this.house = data[0]
         this.exists = true
@@ -39,6 +43,7 @@ export class HouseComponent implements OnInit {
       data.forEach((character) => {
         if (character.house == this.house["name"]) this.characters[character._id] = character.name
       })
+      this.api.call(false)
     })
   }
 

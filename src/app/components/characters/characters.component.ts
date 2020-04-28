@@ -34,6 +34,7 @@ export class CharactersComponent implements OnInit {
   }
 
   getHousesId() : void {
+    this.api.call(true)
     this.api.getAllHouses().subscribe((data : Array<any>) => {
       data.forEach((house) => {
         this.houses[house.name] = house._id
@@ -45,6 +46,7 @@ export class CharactersComponent implements OnInit {
     this.api.getAllCharacters().subscribe((data : Array<any>) => {
       this.characters = data
       this.filtered = data
+      this.api.call(false)
     })
   }
 
@@ -94,13 +96,6 @@ export class CharactersComponent implements OnInit {
         break
     }
     return this.filtered
-  }
-
-  customSearch() : void {
-    this.api.getAllCharacters().subscribe((data : Array<any>) => {
-      this.characters = []
-      
-    })
   }
 
   addCharacterLocal(id : string, $event : any) : void {

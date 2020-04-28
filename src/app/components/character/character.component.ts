@@ -24,8 +24,12 @@ export class CharacterComponent implements OnInit {
   }
 
   getCharacter() : void {
+    this.api.call(true)
     this.api.getCharacter(this.id).subscribe((data : object) => {
-      if (data.hasOwnProperty('message')) this.exists = false
+      if (data.hasOwnProperty('message')) {
+        this.exists = false
+        this.api.call(false)
+      }
       else {
         this.character = data
         this.exists = true
@@ -73,6 +77,7 @@ export class CharacterComponent implements OnInit {
       for (let i = 0; i < data.length; i++) {
         if (data[i].name == this.character["house"]) this.link = data[i]._id
       }
+      this.api.call(false)
     })
   }
 }
