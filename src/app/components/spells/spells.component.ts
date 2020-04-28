@@ -28,7 +28,7 @@ export class SpellsComponent implements OnInit {
     this.api.getAllSpells().subscribe((data : Array<any>) => {
       this.spells = data
       this.filtered = data
-      
+      this.api.call(false)
     })
   }
 
