@@ -6,7 +6,6 @@ import { LoadingService } from './loading.service'
 export class ApiService {
   readonly apiKey = "$2a$10$UD/i1boaxVbc18ID7VvX3OpjR0BVvUHZi92xxucNXtutx1KCPTChW"
 
-
   constructor(private http: HttpClient, private loading : LoadingService) {}
 
   getAllCharacters() {
