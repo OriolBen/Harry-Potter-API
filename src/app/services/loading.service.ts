@@ -4,17 +4,17 @@ import { ComponentPortal } from '@angular/cdk/portal'
 import { LoadingComponent } from '../components/loading/loading.component'
 import { Observable, Subject } from 'rxjs'
 import { mapTo, scan, map, mergeMap } from 'rxjs/operators'
-import { ApiService } from './api.service'
-import { DataService } from './data.service'
-import { AuthenticationService } from './authentication.service'
 
 @Injectable()
 export class LoadingService {
   spinnerRef : OverlayRef = this.cdkSpinnerCreate()
   spin : Subject<boolean> = new Subject()
   state : boolean = false
+  storage : boolean = false
+  api : boolean = false
+  authentication : boolean = false
 
-  constructor(private overlay: Overlay, private api : ApiService, private storage : DataService, public authService : AuthenticationService) {
+  constructor(private overlay: Overlay) {
     this.spin.asObservable().pipe(
       map(val => val ? 1 : -1 ),
       scan((acc, one) => (acc + one) >= 0 ? acc + one : 0, 0)
@@ -40,8 +40,26 @@ export class LoadingService {
     this.spinnerRef.detach();
   }
 
+  set(variable : string, value : boolean) {
+    switch (variable) {
+      case "storage":
+        this.storage = value
+        break
+      case "api":
+        this.api = value
+        break
+      case "authentication":
+        this.authentication = value
+        break
+    }
+    console.log("Storage: " + this.storage)
+    console.log("API: " + this.api)
+    console.log("Authentication: " + this.authentication)
+    this.check()
+  }
+
   check() : void {
-    let bool : boolean = this.storage.updating || this.authService.login == "Unknown"
+    let bool : boolean = this.storage || this.api || this.authentication
     if (this.state != bool) {
       this.state = bool
       this.spin.next(this.state)

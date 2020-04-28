@@ -3,6 +3,7 @@ import { AuthenticationService } from './authentication.service'
 import { AngularFireDatabase } from '@angular/fire/database'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
+import { LoadingService } from './loading.service'
 
 export const LOCAL_DATA = new InjectionToken<Storage>('Local Data', {
   providedIn: 'root',
@@ -30,9 +31,9 @@ export class DataService {
     "characters": [],
     "spells": []
   }
-  updating : boolean = true
 
-  constructor(@Inject(LOCAL_DATA) public data : Storage, private db : AngularFireDatabase, public authentication : AuthenticationService) {
+  constructor(@Inject(LOCAL_DATA) public data : Storage, private db : AngularFireDatabase, public authentication : AuthenticationService, private loading : LoadingService) {
+    this.loading.set("storage", true)
     let exists = this.data.getItem('Harry Potter API')
     if (exists) this.local = JSON.parse(exists)
     this.authentication.afAuth.auth.onAuthStateChanged((user) => {
@@ -43,7 +44,7 @@ export class DataService {
           this.online.spells = Object.values(data[2])
         })
       }
-      this.updating = false
+      this.loading.set("storage", false)
     })
   }
 
@@ -56,7 +57,7 @@ export class DataService {
   }
 
   addFavouriteLocal(category : string, id : string) : void {
-    this.updating = true
+    this.loading.set("storage", true)
     switch (category) {
       case "house":
         this.local.house = id
@@ -66,30 +67,30 @@ export class DataService {
         break
     }
     this.data.setItem('Harry Potter API', JSON.stringify(this.local))
-    this.updating = false
+    this.loading.set("storage", false)
   }
 
   addFavouriteOnline(category : string, id : string) : void {
-    this.updating = true
+    this.loading.set("storage", true)
     switch (category) {
       case "house":
         this.db.database.ref(this.authentication.userDetails.uid).update({
           house: id
         }).then(() => {
           this.online.house = id
-          this.updating = false
+          this.loading.set("storage", false)
         })
         break
       default:
         this.db.database.ref(this.authentication.userDetails.uid + "/" + category).update({
           [id]: id
-        }).then(() => this.updating = false)
+        }).then(() => this.loading.set("storage", false))
         break
     }
   }
 
   removeFavouriteLocal(category : string, id : string) : void {
-    this.updating = true
+    this.loading.set("storage", true)
     switch (category) {
       case "house": 
         this.local.house = ""
@@ -101,28 +102,28 @@ export class DataService {
         break
     }
     this.data.setItem('Harry Potter API', JSON.stringify(this.local))
-    this.updating = false
+    this.loading.set("storage", false)
   }
 
   removeFavouriteOnline(category : string, id : string) : void {
-    this.updating = true
+    this.loading.set("storage", true)
     switch (category) {
       case "house": 
         this.db.database.ref(this.authentication.userDetails.uid).update({
           house: ""
-        }).then(() => this.updating = false)
+        }).then(() => this.loading.set("storage", false))
         break
       default:
-        if (this.online[category].length != 1) this.db.database.ref(this.authentication.userDetails.uid + "/" + category + "/" + id).remove().then(() => this.updating = false)
+        if (this.online[category].length != 1) this.db.database.ref(this.authentication.userDetails.uid + "/" + category + "/" + id).remove().then(() => this.loading.set("storage", false))
         else this.db.database.ref(this.authentication.userDetails.uid).update({
           [category]: ""
-        }).then(() => this.updating = false)
+        }).then(() => this.loading.set("storage", false))
         break
     }
   }
 
   upload() : void {
-    this.updating = true
+    this.loading.set("storage", true)
     let characters = this.local.characters.reduce(function(o, val) {
       o[val] = val
       return o
@@ -135,6 +136,6 @@ export class DataService {
       house: this.local.house,
       characters: characters,
       spells: spells,
-    }).then(() => this.updating = false)
+    }).then(() => this.loading.set("storage", false))
   }
 }
