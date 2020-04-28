@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { LoadingService } from './loading.service'
 
 @Injectable()
 export class ApiService {
   readonly apiKey = "$2a$10$UD/i1boaxVbc18ID7VvX3OpjR0BVvUHZi92xxucNXtutx1KCPTChW"
+  calling : boolean = false
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private loading : LoadingService) {}
 
   getAllCharacters() {
     const apiURL = "https://www.potterapi.com/v1/characters" + "?key=" + this.apiKey
@@ -30,5 +32,9 @@ export class ApiService {
   getAllSpells() {
     const apiURL = "https://www.potterapi.com/v1/spells" + "?key=" + this.apiKey
     return this.http.get(apiURL)
+  }
+
+  call(value : boolean) {
+    this.loading.set("api", value)
   }
 }
