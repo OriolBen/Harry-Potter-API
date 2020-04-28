@@ -1,6 +1,7 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core'
 import { AuthenticationService } from './authentication.service'
 import { AngularFireDatabase } from '@angular/fire/database'
+import { LoadingService } from './loading.service'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 
@@ -32,7 +33,7 @@ export class DataService {
   }
   updating : boolean = true
 
-  constructor(@Inject(LOCAL_DATA) public data : Storage, private db : AngularFireDatabase, public authentication : AuthenticationService) {
+  constructor(@Inject(LOCAL_DATA) public data : Storage, private db : AngularFireDatabase, public authentication : AuthenticationService, private loading : LoadingService) {
     let exists = this.data.getItem('Harry Potter API')
     if (exists) this.local = JSON.parse(exists)
     this.authentication.afAuth.auth.onAuthStateChanged((user) => {
