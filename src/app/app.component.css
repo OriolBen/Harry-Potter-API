@@ -1,0 +1,69 @@
+mat-toolbar:first-child {
+  height: 75px;
+}
+
+a {
+  text-decoration-line: none;
+  color: white;
+}
+
+mat-toolbar > div > button:first-child {
+  margin-right: 10px;
+}
+
+mat-toolbar > div > p {
+  font-size: 16px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+mat-toolbar > a > img {
+  margin-top: 10px;
+}
+
+mat-toolbar > mat-toolbar-row > span {
+  margin: auto;
+}
+
+.mat-caption > p {
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+
+#center {
+  justify-content: center;
+  margin-top: 10px;
+}
+
+#center > a {
+  margin-right: 10px;
+}
+
+.space {
+  margin-top: 10px;
+}
+
+#sticky {
+  position: fixed;
+  top: 0;
+}
+
+#bottom {
+  position: absolute;
+  bottom: 10px;
+	left: 50%;
+  transform: translate(-50%, 0);
+  width: 90%;
+}
+
+#wrapper {
+  min-height: calc(100vh - 65px);
+}
+
+#footer {
+  height: 65px;
+}
+
+#down {
+  margin-bottom: 0px;
+}

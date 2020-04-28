@@ -1,0 +1,43 @@
+.spell {
+  margin-top: 50px;
+}
+
+.spell:first-child {
+  margin-top: 30px;
+}
+
+button:first-child {
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+div {
+  text-align: center;
+}
+
+p {
+  width: 100%;
+  margin-bottom: 0px;
+}
+
+.second {
+  margin-top: -25px;
+  margin-bottom: 25px;
+}
+
+mat-divider {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+div > button {
+  margin-left: 10px;
+}
+
+strong {
+  color: #797979;
+}
+
+#bot {
+  margin-top: -80px;
+}
