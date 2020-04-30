@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core'
 import { Overlay, OverlayRef } from '@angular/cdk/overlay'
 import { ComponentPortal } from '@angular/cdk/portal'
 import { LoadingComponent } from '../components/loading/loading.component'
-import { Observable, Subject } from 'rxjs'
-import { mapTo, scan, map, mergeMap } from 'rxjs/operators'
+import { Subject } from 'rxjs'
+import { scan, map } from 'rxjs/operators'
 
 @Injectable()
 export class LoadingService {
@@ -13,6 +13,7 @@ export class LoadingService {
   storage : boolean = false
   api : boolean = false
   authentication : boolean = false
+  first : boolean = true
 
   constructor(private overlay: Overlay) {
     this.spin.asObservable().pipe(
@@ -56,10 +57,13 @@ export class LoadingService {
   }
 
   check() : void {
-    let bool : boolean = this.storage || this.api || this.authentication
-    if (this.state != bool) {
-      this.state = bool
-      this.spin.next(this.state)
+    if (this.first) this.first = false
+    else {
+      let bool : boolean = this.storage || this.api || this.authentication
+      if (this.state != bool) {
+        this.state = bool
+        this.spin.next(this.state)
+      }
     }
   }
 }

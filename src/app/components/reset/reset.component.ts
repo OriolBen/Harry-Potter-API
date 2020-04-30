@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar'
   styleUrls: ['./reset.component.css']
 })
 
-export class ResetComponent {
+export class ResetComponent implements OnInit {
   email : string = ""
 
   constructor(private ngZone: NgZone, private authService : AuthenticationService, private router : Router, private snackBar : MatSnackBar) {}
