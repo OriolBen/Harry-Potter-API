@@ -63,9 +63,10 @@ export class FavouritesComponent implements OnInit {
       if (user != null) {
         this.storage.getFavouriteOnline().subscribe((data) => {
           if (data[0] != "") this.online.characters = Object.values(data[0])
+          else this.online.characters = []
           this.online.house = data[1]
           if (data[2] != "") this.online.spells = Object.values(data[2])
-          console.log(this.online)
+          else this.online.spells = []
           this.onlineEmptyHouse = this.online.house == "" ? true : false
           if (!this.onlineEmptyHouse) {
             this.getHouseOnline()
