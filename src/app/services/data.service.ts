@@ -37,13 +37,7 @@ export class DataService {
     let exists = this.data.getItem('Harry Potter API')
     if (exists) this.local = JSON.parse(exists)
     this.authentication.afAuth.auth.onAuthStateChanged((user) => {
-      if (user != null) {
-        this.getFavouriteOnline().subscribe((data) => {
-          this.online.characters = Object.values(data[0])
-          this.online.house = data[1]
-          this.online.spells = Object.values(data[2])
-        })
-      }
+      if (user != null) this.setFavouriteOnline()
       this.loading.set("storage", false)
     })
   }
@@ -54,6 +48,15 @@ export class DataService {
 
   getFavouriteOnline() : Observable<any> {
     return this.db.list(this.authentication.userDetails.uid).valueChanges()
+  }
+
+  setFavouriteOnline() : void {
+    this.getFavouriteOnline().subscribe((data) => {
+      console.log("SET")
+      if (data[0] != "") this.online.characters = Object.values(data[0])
+      this.online.house = data[1]
+      if (data[2] != "") this.online.spells = Object.values(data[2])
+    })
   }
 
   addFavouriteLocal(category : string, id : string) : void {
@@ -117,7 +120,10 @@ export class DataService {
         if (this.online[category].length != 1) this.db.database.ref(this.authentication.userDetails.uid + "/" + category + "/" + id).remove().then(() => this.loading.set("storage", false))
         else this.db.database.ref(this.authentication.userDetails.uid).update({
           [category]: ""
-        }).then(() => this.loading.set("storage", false))
+        }).then(() => {
+          this.setFavouriteOnline()
+          this.loading.set("storage", false)
+        })
         break
     }
   }
